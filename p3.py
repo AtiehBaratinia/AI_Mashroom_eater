@@ -1,7 +1,13 @@
+"""this class keeps the location of the object"""
+
+
 class Location:
     def __init__(self, x, y):
         self.x = int(x)
         self.y = int(y)
+
+
+"""this class is for result table in LRTA*"""
 
 
 class Result:
@@ -11,8 +17,14 @@ class Result:
         self.sp = sp
 
 
+"""this method return the huristic of the the location"""
+
+
 def huristic():
     return max_manhatan_remaining_two_mashrooms()
+
+
+"""this method calculate the maximum manhatan between two remaining mashrooms"""
 
 
 def max_manhatan_remaining_two_mashrooms():
@@ -21,12 +33,12 @@ def max_manhatan_remaining_two_mashrooms():
         for j in red_mashrooms:
             dif_x = abs(i.x - j.x)
             dif_y = abs(i.y - j.y)
-            if max_dis< dif_x + dif_y:
+            if max_dis < dif_x + dif_y:
                 max_dis = dif_y + dif_x
         for j in blue_mashrooms:
             dif_x = abs(i.x - j.x)
             dif_y = abs(i.y - j.y)
-            if max_dis< dif_x + dif_y:
+            if max_dis < dif_x + dif_y:
                 max_dis = dif_y + dif_x
     for i in blue_mashrooms:
         for j in blue_mashrooms:
@@ -37,11 +49,17 @@ def max_manhatan_remaining_two_mashrooms():
     return max_dis
 
 
+"""this checks whether we have reached our goal or not"""
+
+
 def goal_test():
     if len(blue_mashrooms) < k and len(red_mashrooms) < k:
         print(current_location.x, current_location.y)
         print("you have reached the goal!")
         exit()
+
+
+"""this method finds the minimum cost action"""
 
 
 def min_action(s):
@@ -143,6 +161,9 @@ def min_action(s):
     return tm, ac
 
 
+"""this method checks the mashrooms to see if they exist or not"""
+
+
 def check_for_mashrooms():
     i = 0
     while i < len(red_mashrooms):
@@ -158,6 +179,9 @@ def check_for_mashrooms():
         i += 1
 
 
+"""this method move the mashroom_eater to upper location"""
+
+
 def up():
     if current_location.y != n:
         y_temp = current_location.y + 1
@@ -168,6 +192,9 @@ def up():
                 return
         current_location.y += 1
         check_for_mashrooms()
+
+
+"""this method move the mashroom_eater to the below location"""
 
 
 def down():
@@ -182,6 +209,9 @@ def down():
         check_for_mashrooms()
 
 
+"""this method move the mashroom_eater to the right location"""
+
+
 def right():
     if current_location.x != m:
         x_temp = current_location.x + 1
@@ -193,6 +223,9 @@ def right():
 
         current_location.x += 1
         check_for_mashrooms()
+
+
+"""this method move the mashroom_eater to the left location"""
 
 
 def left():
@@ -237,6 +270,7 @@ if __name__ == "__main__":
     """location , H, ActionMakesH"""
     H = [[Location(current_location.x, current_location.y), huristic(), None]]
 
+    """it does LRTA* until we reach our goal"""
     while True:
         goal_test()
         print(current_location.x, current_location.y)
